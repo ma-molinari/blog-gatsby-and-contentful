@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="50px" height="50px" viewBox="0 0 50 50" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: sketchtool 53.2 (72643) - https://sketchapp.com -->
+    <defs>
+			<linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="0%">
+			<stop offset="0%" style="stop-color:rgb(255,255,0);stop-opacity:1" />
+			<stop offset="100%" style="stop-color:rgb(255,0,0);stop-opacity:1" />
+			</linearGradient>
+    </defs>
+    <title>E083B28E-BE5D-406F-90A1-A517DE8C8BC7</title>
+    <desc>Created with sketchtool.</desc>
+    <g id="Blog" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+			<g id="Blog---Detail" transform="translate(-230.000000, -925.000000)">
+				<g id="Group" transform="translate(231.000000, 926.000000)">
+					<g id="facebook">
+						<circle id="Oval" stroke="#f4c4f3" cx="24" cy="24" r="24"></circle>
+						<path d="M26.1116575,38.4 L20.4360631,38.4 L20.4360631,25.5983842 L17.6,25.5983842 L17.6,21.1873769 L20.4360631,21.1873769 L20.4360631,18.5391568 C20.4360631,14.9408735 22.036605,12.8 26.5867913,12.8 L30.373989,12.8 L30.373989,17.2126231 L28.0069904,17.2126231 C26.2356432,17.2126231 26.1185938,17.8290331 26.1185938,18.9794496 L26.1107905,21.1873769 L30.4,21.1873769 L29.8979882,25.5983842 L26.1107905,25.5983842 L26.1107905,38.4 L26.1116575,38.4 Z" id="Shape" fill="#fc67fa"></path>
+					</g>
+				</g>
+			</g>
+    </g>
+</svg>
