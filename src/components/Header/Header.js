@@ -65,7 +65,8 @@ const Header = () => {
   }
 
   useLayoutEffect(() => {
-    if (window.location.pathname === `/p/${titlePost}`) {
+    
+    if (typeof window !== "undefined" && window.location.pathname === `/p/${titlePost}`) {
       window.onscroll = myScrolling
     }
   }, [])

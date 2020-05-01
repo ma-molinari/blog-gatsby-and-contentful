@@ -10,12 +10,14 @@ import ArrowToTop from "../assets/images/arrow-to-top.svg"
 
 const Footer = () => {
   function scrollToTop(scrollDuration) {
-    let scrollStep = -window.scrollY / (scrollDuration / 15),
-      scrollInterval = setInterval(function() {
-        if (window.scrollY !== 0) {
-          window.scrollBy(0, scrollStep)
-        } else clearInterval(scrollInterval)
-      }, 15)
+    if(typeof window !== "undefined"){
+      let scrollStep = -window.scrollY / (scrollDuration / 15),
+        scrollInterval = setInterval(function() {
+          if (window.scrollY !== 0) {
+            window.scrollBy(0, scrollStep)
+          } else clearInterval(scrollInterval)
+        }, 15)
+    }
   }
 
   return (

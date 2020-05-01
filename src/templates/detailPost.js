@@ -118,7 +118,7 @@ const detailPost = ({ data }) => {
   }
 
   const handleShare = type => {
-    if (!window.navigator.share) {
+    if (typeof window !== "undefined" && !window.navigator.share) {
       switch (type) {
         case "facebook":
           window.open(
@@ -142,7 +142,7 @@ const detailPost = ({ data }) => {
           break
       }
     } else {
-      window.navigator
+      typeof window !== "undefined" &&  window.navigator
         .share({
           title: "blog.com.br",
           text: detail.title,
