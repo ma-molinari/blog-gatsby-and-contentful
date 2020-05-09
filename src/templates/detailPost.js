@@ -12,13 +12,7 @@ import UserPost from "../components/Detail/UserPost"
 import PostDetail from "../components/Detail/PostDetail"
 import {
   formatDateToPtBr,
-  formatCategoryText,
 } from "../utils/helpers"
-
-//icons
-import IconFacebook from "../assets/images/facebook.svg"
-import IconLinkedin from "../assets/images/linkedin.svg"
-import IconTwitter from "../assets/images/twitter.svg"
 
 const detailPost = ({ data }) => {
   const indexPosts = []
@@ -51,7 +45,7 @@ const detailPost = ({ data }) => {
 
   removeCategoriesDuplicates(categories)
 
-  const listCategoriesNoRepeat = []
+  const listCategoriesNoRepeat = [];
 
   lastPosts.map((item, i) => {
     indexPosts.map(index => {
@@ -60,28 +54,6 @@ const detailPost = ({ data }) => {
       }
     })
   })
-
-  const getIndexOfUniqueCategory = category => {
-    const catgs = []
-    categories.filter((item, index) => {
-      if (item === category) {
-        catgs.push(index)
-      }
-    })
-    return catgs
-  }
-
-  const getSlugPostsOfUniqueCategory = category => {
-    const postOfCategory = []
-    lastPosts.map((item, index) => {
-      getIndexOfUniqueCategory(category).map(i => {
-        if (index === i) {
-          postOfCategory.push(item.node)
-        }
-      })
-    })
-    return postOfCategory
-  }
 
   const optionsContent = {
     renderNode: {
@@ -117,46 +89,9 @@ const detailPost = ({ data }) => {
     },
   }
 
-  const handleShare = type => {
-    if (typeof window !== "undefined" && !window.navigator.share) {
-      switch (type) {
-        case "facebook":
-          window.open(
-            `https://www.facebook.com/sharer?u=${window.location.href}`,
-            "_blank"
-          )
-          break
-        case "linkedin":
-          window.open(
-            `https://www.linkedin.com/shareArticle?mini=true&url=${
-              window.location.href
-            }`,
-            "_blank"
-          )
-          break
-        case "twitter":
-          window.open(
-            `https://twitter.com/intent/tweet?text=${window.location.href}`,
-            "_blank"
-          )
-          break
-      }
-    } else {
-      typeof window !== "undefined" &&  window.navigator
-        .share({
-          title: "blog.com.br",
-          text: detail.title,
-          url: window.location.href,
-        })
-        .then(_ => console.log("shared"))
-        .catch(_ => console.log("not shared"))
-    }
-  }
-
   return (
     <Layout>
       <Container>
-
         <Box>
           <SEO
             description={detail.title}
@@ -165,6 +100,7 @@ const detailPost = ({ data }) => {
           />
           <TitlePostDetail>{detail.title}</TitlePostDetail>
           <UserPost
+            title={detail.title}
             avatar={detail.author.avatarAuthor.fluid.src}
             authorName={detail.author.authorName}
             category={detail.category.category}
@@ -176,7 +112,7 @@ const detailPost = ({ data }) => {
             `}
           />
         </Box>
-        <BannerPost srcSet={detail.banner.fluid.srcSet} />
+        <BannerPost draggable="false" srcSet={detail.banner.fluid.srcSet} />
         <ContainerContentPost>
           <PostDetail
             imageBanner={!detail.imagePost ? "" : detail.imagePost.fluid.srcSet}
@@ -187,17 +123,6 @@ const detailPost = ({ data }) => {
             avatarAuthorQuotes={detail.author.avatarAuthor.fluid.src}
             authorNameQuotes={detail.author.authorName}
           />
-          <ContainerSideIcons>
-            <SideIcons
-              onClick={() => handleShare("facebook")}
-              src={IconFacebook}
-            />
-            <SideIcons
-              onClick={() => handleShare("linkedin")}
-              src={IconLinkedin}
-            />
-            <SideIcons onClick={() => handleShare("twitter")} src={IconTwitter} />
-          </ContainerSideIcons>
         </ContainerContentPost>
         <ContainerMorePosts>
           <BoxMorePosts>
@@ -205,7 +130,7 @@ const detailPost = ({ data }) => {
               return (
                 <div key={index}>
                   <MorePost
-                    linkTo={item.node.category.category}
+                    linkTo={item.node.category.slug}
                     heightText={0}
                     slug={item.node.slug}
                     id={item.node.id}
@@ -240,7 +165,7 @@ const Container = styled.div`
 //Title
 const Box = styled.div`
   max-width: 680px;
-  width:100%;
+  width: 100%;
   margin: 0 auto;
   @media(max-width:768px){
     padding: 1em;
@@ -248,7 +173,7 @@ const Box = styled.div`
 `
 const TitlePostDetail = styled.p`
   margin-top: 0.5em;
-  font-size: 2rem;
+  font-size: 1.8rem;
   font-weight: normal;
   font-style: normal;
   font-stretch: normal;
@@ -263,7 +188,7 @@ const TitlePostDetail = styled.p`
 const BannerPost = styled.img`
   width: 100%;
   height: 100%;
-  max-width:680px;
+  max-width: 680px;
   max-height: 450px;
   margin: 1em auto;
 `
@@ -274,44 +199,22 @@ const ContainerContentPost = styled.div`
   margin: 0 auto;
   display: grid;
   grid-template-areas:
-    "ContentPost"
-    "SideIcons";
+    "ContentPost";
   grid-template-columns: 1fr;
   grid-gap: 80px;
   @media (max-width: 1000px) {
-    grid-template-areas:
-      "ContentPost"
-      "SideIcons";
     grid-template-columns: 100%;
     max-width: 680px;
-  }
-`
-const ContainerSideIcons = styled.div`
-  grid-area: SideIcons;
-  display: flex;
-  align-items:center;
-  justify-content:space-between;
-  flex-direction: row;
-`
-const SideIcons = styled.img`
-  margin-top: 0.6em;
-  margin-bottom: 1em;
-  width: 48px;
-  height: 48px;
-  object-fit: contain;
-  cursor: pointer;
-  @media (max-width: 900px) {
-    margin-right: 0.5em;
   }
 `
 
 //More posts
 const ContainerMorePosts = styled.div`
-  margin-top: 2em;
   width: 100%;
-  padding: 5em 2em 5em 2em;
+  padding: 5em 1em 2em 1em;
   background-color: #f9f9f9;
 `
+
 const BoxMorePosts = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
@@ -333,6 +236,7 @@ export const query = graphql`
       type
       slug
       category {
+        slug
         category
       }
       title
@@ -369,6 +273,7 @@ export const query = graphql`
           slug
           title
           category {
+            slug
             category
           }
           createdAt(formatString: "MMMM, D, YYYY")

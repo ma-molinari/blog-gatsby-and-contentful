@@ -1,0 +1,1 @@
+{"componentChunkName":"component---src-templates-categories-js","path":"/categorias/undefined","result":{"errors":[{"message":"Variable \"$categoria\" got invalid value undefined; Expected non-nullable type String! not to be null.","locations":[{"line":1,"column":18}]}],"pageContext":{}}}

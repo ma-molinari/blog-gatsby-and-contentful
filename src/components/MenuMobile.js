@@ -15,6 +15,7 @@ const MenuMobile = props => {
             edges {
               node {
                 category
+                slug
                 photo {
                   file {
                     url
@@ -39,7 +40,7 @@ const MenuMobile = props => {
             <ModalListLinks>
               {data.allContentfulCategory.edges.map((item, index) => (
                 <ModalLinks key={index}>
-                  <Link to={`categorias/${item.node.category}`}>
+                  <Link to={`categorias/${item.node.slug}`}>
                     <ContainerCategory>
                       <p>{item.node.category}</p>
                     </ContainerCategory>
@@ -54,7 +55,7 @@ const MenuMobile = props => {
                 rel="noopener noreferrer"
               >
                 <ModalLinks>
-                  <GithubIcon src={Github}/>
+                  <GithubIcon draggable="false" src={Github}/>
                 </ModalLinks>
               </a>
             </MoreInfo>
@@ -73,7 +74,7 @@ const ModalMenu = styled.div`
   margin: 0;
   width: 100%;
   height: 9999px;
-  background: #333;
+  background: #000;
   position: fixed;
   z-index: 9999;
   box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.3);
@@ -97,7 +98,7 @@ const ContainerScroll = styled.div`
 
 const Header = styled.div`
   color: #666;
-  padding: 2em 1em 0em 1em;
+  padding: 1em 1em 0em 1em;
   display: flex;
   justify-content: space-between;
   cursor: pointer;
@@ -138,7 +139,7 @@ const ModalLinks = styled.li`
     color: #fff;
   }
   div:hover {
-    color: #fc67fa;
+    color: #32ff03;
     cursor: pointer;
     transition: 0.3s;
   }
@@ -174,7 +175,7 @@ const MoreInfo = styled.div`
     text-decoration: none;
     color: #000;
     :hover {
-      color: #fc67fa;
+      color: #32ff03;
       transition: 0.3s;
     }
   }
@@ -183,6 +184,5 @@ const MoreInfo = styled.div`
 const GithubIcon = styled.img`
   height:40px;
   width:40px;
-  background:white;
   border-radius:10em;
 `

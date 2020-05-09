@@ -2,16 +2,10 @@ import React from "react"
 import { graphql } from "gatsby"
 import styled from "styled-components"
 import { Link } from "@reach/router"
-import { BLOCKS, MARKS, INLINES } from "@contentful/rich-text-types"
-import { documentToReactComponents } from "@contentful/rich-text-react-renderer"
 
 import Layout from "../components/layout"
 import SEO from "../components/seo"
 import Post from "../components/Blog/Post"
-import ReceiveNewPosts from "../components/ReceiveNewPosts"
-import {
-  formatCategoryText,
-} from "../utils/helpers"
 
 const IndexPage = ({ data }) => {
   const posts = data.allContentfulPost.edges
@@ -23,100 +17,18 @@ const IndexPage = ({ data }) => {
     return item.node.type === "normal"
   })
 
-  const indexPosts = []
-  function removeCategoriesDuplicates(arr) {
-    let unique = []
-    for (let i = 0; i < arr.length; i++) {
-      if (unique.indexOf(arr[i]) === -1) {
-        indexPosts.push(i)
-        unique.push(arr[i])
-      }
-    }
-    return unique
-  }
-
-  const categories = normalPost.map(
-    item => item.node.category.category
-  )
-
-  removeCategoriesDuplicates(categories)
-
-  const listCategoriesNoRepeat = []
-
-  normalPost.map((item, i) => {
-    indexPosts.map(index => {
-      if (i === index) {
-        listCategoriesNoRepeat.push(item)
-      }
-    })
-  })
-
-  const getIndexOfUniqueCategory = category => {
-    const catgs = []
-    categories.filter((item, index) => {
-      if (item === category) {
-        catgs.push(index)
-      }
-    })
-    return catgs
-  }
-
-  // const getSlugPostsOfUniqueCategory = category => {
-  //   const postOfCategory = []
-  //   normalPost.map((item, index) => {
-  //     getIndexOfUniqueCategory(category).map(i => {
-  //       if (index === i) {
-  //         postOfCategory.push(item.node)
-  //       }
-  //     })
-  //   })
-  //   return postOfCategory
-  // }
-
-  // const optionsContent = {
-  //   renderNode: {
-  //     [INLINES.HYPERLINK]: node => {
-  //       const value = node.content.map(item => item.value)
-  //       return (
-  //         <a
-  //           style={{ textDecoration: "underline" }}
-  //           href={node.data.uri}
-  //           target="_blank"
-  //           rel="noopener noreferrer"
-  //         >
-  //           {value}
-  //         </a>
-  //       )
-  //     },
-  //     [BLOCKS.EMBEDDED_ASSET]: node => {
-  //       return (
-  //         <img
-  //           src={`${
-  //             !node.data.target.fields
-  //               ? ""
-  //               : node.data.target.fields.file["pt-BR"].url
-  //           }`}
-  //           alt="blog-images"
-  //         />
-  //       )
-  //     },
-  //     [BLOCKS.PARAGRAPH]: (node, text) => <p>{text}</p>,
-  //   },
-  //   renderMark: {
-  //     [MARKS.BOLD]: text => <b>{text}</b>,
-  //   },
-  // }
-
   return (
     <Layout>
       <Container>
         <SEO
+          keywords=""
           title="Blog with gatsby and contentful"
         />
         <ContainerSection>
           <div>
             <Link to={`p/${principalPost.node.slug}`}>
               <ImageFeature
+                draggable="false"
                 src={principalPost.node.imagePost.fluid.src}
                 srcSet={principalPost.node.imagePost.fluid.srcSet}
                 alt="principal-post-banner"
@@ -135,11 +47,11 @@ const IndexPage = ({ data }) => {
           </ContainerFirstPost>
         </ContainerSection>
         <ContainerPosts>
-          {listCategoriesNoRepeat.map((item, index) => {
+          {normalPost.slice(0,6).map((item, index) => {
             if (item.node) {
               return (
                 <Post
-                  linkTo={item.node.category.category}
+                  linkTo={item.node.category.slug}
                   slug={item.node.slug}
                   key={index}
                   category={
@@ -158,9 +70,6 @@ const IndexPage = ({ data }) => {
             }
           })}
         </ContainerPosts>
-        {/* <ContainerReceiveNewPost>
-          <ReceiveNewPosts />
-        </ContainerReceiveNewPost> */}
       </Container>
     </Layout>
   )
@@ -172,13 +81,16 @@ const Container = styled.div`
   padding: 2em;
   margin: 0 auto;
   max-width: 1300px;
+  @media (max-width: 440px) {
+    padding: 1em;
+  }
 `
 
 const ContainerSection = styled.div`
   width: 100%;
   display: grid;
   grid-template-columns: 1fr .4fr;
-  align-items:center;
+  align-items:flex-start;
   grid-gap: 44px;
   @media (max-width: 1200px) {
     grid-gap: 20px;
@@ -200,8 +112,7 @@ const ContainerPosts = styled.div`
     grid-template-columns: 1fr 1fr;
     grid-gap: 50px;
   }
-  @media (max-width: 600px) {
-    /* margin-top: 3em; */
+  @media (max-width: 440px) {
     grid-template-columns: 1fr;
   }
 `
@@ -216,13 +127,6 @@ const ImageFeature = styled.img`
   }
 `
 
-const ContainerReceiveNewPost = styled.div`
-  margin-top: 9em;
-  @media (min-width: 240px) and (max-width: 600px) {
-    margin-top: 11em;
-  }
-`
-
 const ContainerFirstPost = styled.div`
   display:flex;
   flex-direction:column;
@@ -230,14 +134,16 @@ const ContainerFirstPost = styled.div`
 `
 
 const TitlePost = styled(Link)`
-  font-size:1.8rem;
-  line-height: 1;
-  font-weight:600;
-  color:#000;
+  font-size: 1.7rem;
+  line-height: 40px;
+  font-weight: 500;
+  color: #000;
   margin-bottom:.3em;
-  text-decoration:none;
-  @media(max-width:600px){
-    font-size:1.2rem;
+  text-decoration: none;
+  @media(max-width: 440px){
+    line-height: 35px;
+    font-size: 1.4rem;
+    text-align:center;
   }
 `
 
@@ -245,8 +151,9 @@ const ReadPost = styled(Link)`
   font-size:1rem;
   color:#999;
   text-decoration:none;
-  @media(max-width:600px){
-    font-size:.8rem;
+  @media(max-width: 440px){
+    text-align:center;
+    font-style: italic;
   }
 `
 
@@ -260,6 +167,7 @@ export const pageQuery = graphql`
           title
           slug
           category {
+            slug
             category
           }
           content {

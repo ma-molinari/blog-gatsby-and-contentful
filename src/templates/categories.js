@@ -7,7 +7,6 @@ import SEO from "../components/seo"
 import Post from "../components/Categories/Post"
 import ContentTitlePage from "../components/Categories/ContentTitle"
 import {
-  formatCategoryText,
 } from "../utils/helpers"
 
 const Category = ({ data }) => {
@@ -107,20 +106,11 @@ const Container = styled.div`
   margin: 0 auto;
   max-width: 1300px;
   min-height:100vh;
+  @media (max-width: 440px) {
+    padding: 1em;
+  }
 `
 
-const SubTitlePage = styled.p`
-  margin-top: 1em;
-  max-width: 500px;
-  width: 100%;
-  font-size: 18px;
-  font-weight: normal;
-  font-style: normal;
-  font-stretch: normal;
-  line-height: 1.61;
-  letter-spacing: normal;
-  color: #585f6b;
-`
 //posts
 const ContainerPosts = styled.div`
   margin-top: 2.5em;
@@ -153,7 +143,7 @@ const LoadingArticles = styled.h2`
 export const query = graphql`
   query Categories($categoria: String!) {
     allContentfulPost(
-      filter: { category: { category: { eq: $categoria } } }
+      filter: { category: { slug: { eq: $categoria } } }
       sort: { fields: [createdAt], order: DESC }
     ) {
       totalCount

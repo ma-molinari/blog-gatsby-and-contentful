@@ -26,27 +26,27 @@ const ContentText = styled.div`
     margin-top: 0;
   }
   p {
-    font-size: 18px;
+    font-size: 19px;
+    line-height: 32px;
+    letter-spacing: -0.003em;
     font-weight: normal;
     font-style: normal;
     font-stretch: normal;
-    line-height: 2.11;
     letter-spacing: normal;
     color: #585f6b;
-    /* margin-top: 2em; */
     margin-bottom: 2em;
     @media (max-width: 600px) {
-      font-size: 16px;
+      font-size: 18px;
     }
     a {
       text-decoration: none;
       color: #585f6b;
       :hover {
-        color: #fc67fa;
+        color: #32ff03;
         text-decoration: underline;
         b {
           font-weight: 200;
-          color: #fc67fa;
+          color: #32ff03;
         }
       }
     }
@@ -64,8 +64,8 @@ const ContentText = styled.div`
   }
 
   img {
-    margin-top: 1em;
-    margin-bottom: 2em;
+    margin-top: 0em;
+    margin-bottom: 1.5em;
     max-height: 335px;
     width: auto;
     border-radius: 0.3em;
@@ -88,7 +88,7 @@ const ContentText = styled.div`
       text-decoration: none;
       color: #585f6b;
       :hover {
-        color: #fc67fa;
+        color: #32ff03;
       }
     }
     @media (max-width: 600px) {

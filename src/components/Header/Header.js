@@ -1,26 +1,19 @@
 import { Link } from "@reach/router"
 import PropTypes from "prop-types"
-import React, { useState, useEffect, useLayoutEffect } from "react"
+import React, { useState, useLayoutEffect } from "react"
 import styled from "styled-components"
-import {
-  transition,
-  cancelTransition,
-  styleTransitionDefault,
-} from "../../utils/helpers"
 
 import MenuOpenIcon from "../../assets/icons/menu-icon.svg"
 import MenuCloseIcon from "../../assets/icons/close-menu-mobile.svg"
-import ArrowDownIcon from "../../assets/icons/arrow-down.svg"
 import Github from "../../assets/images/github.svg"
 
-
 import MenuMobile from "../MenuMobile"
+import GridLinks from "./GridLinks"
 import ContainerCategoriesList from "./WindowContainerCategoriesList"
 
+import background from "../../assets/images/bg2.png"
+
 const Header = () => {
-  const [displayTransition, setDisplayTransition] = useState(
-    styleTransitionDefault
-  )
 
   const SwitchIconMenu = param => {
     switch (param) {
@@ -33,150 +26,82 @@ const Header = () => {
     }
   }
 
-  let timer = null
-  useEffect(() => {
-    return () => {
-      !timer ? clearTimeout(timer) : console.log(timer)
-    }
-  }, [])
-  const initialTimer = () =>
-    (timer = setTimeout(() => {
-      setDisplayTransition(transition)
-    }, 500))
-
-  const clearTimer = () => clearTimeout(timer)
-
-  const [menuMobile, setMenuMobile] = useState(false)
-
-  const actionCancelTransition = () => {
-    setDisplayTransition(cancelTransition)
-  }
-
-  let timeoutExist = null
-
-  useEffect(() => {
-    return () => clearTimeout(timeoutExist)
-  }, [])
-
-  let titlePost
-
-  if (typeof window !== "undefined") {
-    titlePost = window.location.pathname.split("/p/")[1]
-  }
-
-  useLayoutEffect(() => {
-    
-    if (typeof window !== "undefined" && window.location.pathname === `/p/${titlePost}`) {
-      window.onscroll = myScrolling
-    }
-  }, [])
-
-  function myScrolling() {
-    let winScroll =
-      document.body.scrollTop || document.documentElement.scrollTop
-    let height =
-      document.documentElement.scrollHeight -
-      document.documentElement.clientHeight
-    let scrolled = (winScroll / height) * 100
-    document.getElementById("myBar").style.width = scrolled + "%"
-  }
+  const [menuMobile, setMenuMobile] = useState(false);
 
   return (
-    <HeaderNav>
-      <BackgroundNav
-        onMouseOver={() => {
-          if (!timeoutExist) {
-            timeoutExist = setTimeout(() => {
-              actionCancelTransition()
-              setDisplayTransition(styleTransitionDefault)
-            }, 300)
-          }
-        }}
-      >
-        <div style={{ margin: "0 auto", maxWidth: "1300px" }}>
-          <ContainerInteraction>
-            <ContainerMenuAndLogo>
-              <MenuButton
-                src={SwitchIconMenu(menuMobile)}
-                onClick={() => {
-                  setMenuMobile("true")
-                }}
-                alt="menu-button"
-              />
-              <Link to="/">
-                <h2>Blog</h2>
-              </Link>
-            </ContainerMenuAndLogo>
-            <ContainerFlex>
-              <WrapperLink>
-                <ContainerIcon
-                  onMouseOver={() => {
-                    initialTimer()
-                  }}
-                  onMouseOut={() => clearTimer()}
-                  style={{ paddingRight: "1em" }}
-                  >
-                    <div
-                      style={{paddingBottom:"2em"}}
-                    >
-                      Categorias
-                    </div>
-                  <IconArrowDown src={ArrowDownIcon} style={{paddingBottom:"2em"}}/>
-                </ContainerIcon>
-              </WrapperLink>
-              <div>
-                <div style={{ fontSize: "16px", display: "flex" }}>
-                  <ContainerIcon>
-                    <a
-                      href="https://github.com/ma-molinari"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      <GithubIcon src={Github}/>
-                    </a>
-                  </ContainerIcon>
-                </div>
-              </div>
-            </ContainerFlex>
-          </ContainerInteraction>
-        </div>
-        {typeof window !== "undefined" ? (
-          window.location.pathname === `/p/${titlePost}` ? (
-            <ProgressContainer className="progress-container">
-              <ProgressBar className="progress-bar" id="myBar" />
-            </ProgressContainer>
-          ) : (
-              <ProgressContainer className="progress-container">
-                <ProgressBar
-                  className="progress-bar"
-                  id="myBar"
-                  style={{ background: "transparent" }}
-                />
-              </ProgressContainer>
+    <Container 
+      deskHeight={typeof window !== undefined && window.location.pathname === "/" ? "800px" : "75px"}
+      mediumHeight={typeof window !== undefined && window.location.pathname === "/" ? "500px" : "75px"}
+      mobileHeight={ typeof window !== undefined && window.location.pathname === "/" ? "400px" : "75px"}
+      style={{
+        backgroundImage:  typeof window !== undefined && window.location.pathname === "/" ? `url(${background})` : "",
+        backgroundColor:  typeof window !== undefined && window.location.pathname === "/" ? "transparent" : "#000",
+      }}
+    >
+      <HeaderNav>
+        <ContainerMenuAndLogo>
+          <MenuButton
+            draggable="false"
+            src={SwitchIconMenu(menuMobile)}
+            onClick={() => {
+              setMenuMobile("true")
+            }}
+            alt="menu-button"
+          />
+          {
+            typeof window !== undefined && window.location.pathname === "/" && (
+              <Home to="/">HOME</Home>
             )
-        ) : (
-            console.log("window is undefined")
-          )}
-      </BackgroundNav>
-      {menuMobile ? (
-        <MenuMobile
-          closeMenu={() => {
-            setMenuMobile(false)
-          }}
-        />
-      ) : (
-          <></>
+          }
+          {
+            typeof window !== undefined && window.location.pathname !== "/" && (
+              <WrapLinks>
+                <Home to="/">HOME</Home>
+                <MyLink className="head-link" to="/categorias/html5-css3">
+                  html5 e css3
+                </MyLink>
+                <MyLink className="head-link" to="/categorias/react">
+                  React
+                </MyLink>
+                <MyLink className="head-link" to="/categorias/react-native">
+                  React Native
+                </MyLink>
+                <MyLink className="head-link" to="/categorias/flutter">
+                  Flutter
+                </MyLink>
+              </WrapLinks>
+            )
+          }
+          <ContainerIcon>
+            <a
+              href="https://github.com/ma-molinari"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <GithubIcon src={Github}/>
+            </a>
+          </ContainerIcon>
+        </ContainerMenuAndLogo>
+        {menuMobile && (
+          <MenuMobile
+            closeMenu={() => {
+              setMenuMobile(false)
+            }}
+          />
         )}
-      <WindowCategories id="catgWindow" style={displayTransition}>
-        <ContainerCategoriesList
-          onMouseOverShadow={() => {
-            actionCancelTransition()
-            setTimeout(() => setDisplayTransition(styleTransitionDefault), 300)
-          }}
-          shadowTransition={displayTransition}
-        />
-      </WindowCategories>
-    </HeaderNav>
+      </HeaderNav>
+      {
+        typeof window !== undefined && window.location.pathname === "/" && (
+          <ContainerContentHeader>
+            <BoxTitleHeader>
+              <TextHeader>Front End</TextHeader>
+              <SmallTextHedader>Confira conteúdos sobre Front End, HTML5, CSS3, React, React Native e Flutter.</SmallTextHedader>
+            </BoxTitleHeader>
+            <GridLinks/>
+          </ContainerContentHeader>
+        )
+      }
+    </Container>
   )
 }
 
@@ -190,159 +115,160 @@ Header.defaultProps = {
 
 export default Header
 
-const ProgressContainer = styled.div`
-  z-index: 9999;
-  width: 100%;
-  margin-top: -21px;
-  @media (max-width: 600px) {
-    margin-top: -22px;
+const Container = styled.div`
+  background-size: cover;
+  background-repeat: no-repeat;
+  height: ${props => props.deskHeight} !important;
+  @media(min-width:1400px){
+    background-position-y: center;
   }
-`
-
-const ProgressBar = styled.div`
-  height: 4px;
-  background-image: linear-gradient(to right, #f4c4f3 0%, #fc67fa 51%, #f4c4f3 100%);
-  width: 0%;
+  @media(max-width:768px){
+    height: ${props => props.mediumHeight} !important;
+  }
+  @media(max-width: 440px){
+    height: ${props => props.mobileHeight} !important;
+  }
 `
 
 const HeaderNav = styled.div`
-  font-family: codePro, sans-serif !important;
-  height: 100%;
-  width: 100%;
+  max-width: 1300px;
+  margin: 0 auto;
 `
 
-const BackgroundNav = styled.div`
-  height: 80px;
-  background-color:#333333;
-  background-size: 100% 120px;
-  position: fixed;
-  z-index: 9999;
-  top: 0;
-  width: 100%;
-  box-shadow: 0 10px 15px 0 rgba(0, 0, 0, 0.1);
-`
-
-const ContainerInteraction = styled.div`
-  display: flex;
-  padding-left: 3%;
-  @media (max-width: 1000px) {
-    flex-direction: column;
-  }
-`
 const ContainerMenuAndLogo = styled.div`
   display: flex;
   justify-content: space-between;
-  flex-direction: row-reverse;
-  align-items:center;
+  align-items: center;
   height: 75px;
   h2{
     color:#fff;
     margin: 0;
-    width:100px;
   }
   a{
     text-decoration:none;
   }
-`
-
-const Logo = styled.img`
-  margin: 0px 0px 0px -15px;
-  object-fit: contain;
-  width: 240px;
-  height: 75px;
-  cursor: pointer;
-  @media (max-width: 1000px) {
-    width: 180px;
-    /* height: 45px; */
-    /* margin: 3px 0px 0px -5px; */
+  @media (max-width: 1300px) {
+    padding: 0 2em;
   }
-`
-
-const ContainerFlex = styled.div`
-  font-size: 16px;
-  color: #fff;
-  margin-bottom: 0;
-  margin-top: 25px;
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  a {
-    text-decoration: none;
-    color: #fff;
+  @media (max-width: 1024px) {
+    flex-direction: row;
+  }
+  @media (max-width: 768px) {
+    flex-direction: row-reverse;
+  }
+  @media (max-width: 440px) {
+    padding: 0 1em;
   }
 `
 
 const MenuButton = styled.img`
   height: 1em;
-  color: white;
   width: 1.5em;
-  margin: 0em 2em 0 0;
+  background: #333;
   cursor: pointer;
-  @media (min-width: 1000px) {
+  @media (min-width: 1024px) {
     display: none;
   }
-  @media (max-width: 600px) {
-    margin: 0em 1em 0 0;
+`
+
+const Home = styled(Link)`
+  font-family: inter;
+  font-weight: 500;
+  font-size: 18px;
+  margin-right:2rem;
+  color: #fff;
+  cursor: pointer;
+  :hover{
+    opacity:.8;
+  }
+`
+
+const WrapLinks = styled.div`
+  display: flex;
+  align-items: center;
+  @media(max-width:768px){
+    .head-link {
+      display: none;
+    } 
+  }
+`
+
+const MyLink = styled(Link)`
+  font-family: inter;
+  text-decoration: none;
+  color: #B1AEAE;
+  text-transform: uppercase;
+  font-size: 16px;
+  margin: 0 1rem;
+  :hover{
+    opacity:.8;
   }
 `
 
 const ContainerIcon = styled.div`
-  display:flex;
-  align-items:center;  
-  cursor: pointer;
-  @media (max-width: 1000px) {
-    display: none;
-  }
-`
-
-const IconArrowDown = styled.img`
-  width: 15px;
-  margin-left: 0.3em;
-  margin-bottom: 0px;
-`
-const IconArrowRight = styled.img`
-  width: 15px;
-  margin-left: 0.3em;
-  margin-bottom: 0px;
-  transform: rotate(270deg);
-`
-
-const WrapperLink = styled.div`
   display: flex;
-  padding: 0.1em 1em 1em 0em;
-  @media (max-width: 1000px) {
-    display: none;
-  }
-  span {
-    padding: 1em 2em 2em 2em;
-  }
-`
-//modal
-
-const WindowCategories = styled.div`
-  opacity: 0;
-  transition: opacity 0.3s linear;
-  text-align: left;
-  z-index: 9999;
-  top: 80px;
-  left: 0px;
-  max-width: 100%;
-  background-color: white;
-  border-radius: 0px;
-  position: absolute;
-  display:flex;
-  align-items:center;
-  width: 100%;
-  height: 260px;
-  box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.15);
-  @media (max-width: 1000px) {
+  align-items: center;  
+  cursor: pointer;
+  @media (max-width: 768px) {
     display: none;
   }
 `
 
 const GithubIcon = styled.img`
-  height:40px;
-  width:40px;
-  background:white;
-  border-radius:10em;
+  height: 40px;
+  width: 40px;
+  border-radius: 10em;
+  :hover{
+    opacity:.7;
+    transition:.3s;
+  }
+`
+
+const ContainerContentHeader = styled.div`
+  max-width: 1300px;
+  margin: 2rem auto 0 auto;
+  @media(max-width: 1300px){
+    padding: 0 2em;
+  }
+  @media(max-width: 768px){
+    padding: 0 1em;
+  }
+`
+
+const BoxTitleHeader = styled.div`
+  height: 500px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  @media(max-width: 1024px){
+    height: 350px;
+  }
+  @media(max-width: 440px){
+    height: 240px;
+  }
+`
+
+const TextHeader = styled.h1`
+  margin: 0;
+  padding: 0;
+  color: #fff;
+  font-size: 5rem;
+  text-transform: uppercase;
+  opacity:.8;
+  @media(max-width:440px){
+    font-size: 3rem;
+  }
+`
+
+const SmallTextHedader = styled.h3`
+  width: 400px;
+  margin: 1rem 0 0 .2rem;
+  line-height:25px;
+  padding: 0;
+  color: #fff;
+  font-size: .8rem;
+  opacity:.7;
+  @media(max-width:440px){
+    width: 300px;
+  }
 `

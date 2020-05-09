@@ -25,5 +25,8 @@ const TitlePage = styled.h1`
   line-height: 1.45;
   letter-spacing: normal;
   color: #666;
+  @media (max-width: 440px) {
+    font-size: 28px;
+  }
 `
 

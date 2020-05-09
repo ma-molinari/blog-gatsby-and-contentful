@@ -14,7 +14,7 @@ const InfoBanner = props => {
         />
       </Link>
       <ContainerAuthorInfoBanner>
-        <IconPhotoUser src={props.avatar} alt="avatar" />
+        <IconPhotoUser draggable="false" src={props.avatar} alt="avatar" />
         <NameUser>
           {props.authorName}{" "}
           <span>

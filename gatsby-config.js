@@ -27,8 +27,8 @@ module.exports = {
         name: `Categorias`,
         short_name: `Categorias`,
         start_url: `/`,
-        background_color: `#f64f76`,
-        theme_color: `#f64f76`,
+        background_color: `#000`,
+        theme_color: `#000`,
         display: `minimal-ui`,
         icon: `src/assets/images/github.svg`, // This path is relative to the root of the site.
       },

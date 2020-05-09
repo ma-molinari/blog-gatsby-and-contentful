@@ -105,7 +105,7 @@ const MessageSubmitEmail = styled.span`
   height: 100%;
   font-size: 30px;
   text-align: center;
-  color: #fc67fa;
+  color: #32ff03;
   margin-bottom: 1em;
   @media (max-width: 600px) {
     font-size: 1.2rem;
@@ -132,7 +132,7 @@ const ButtonSubmitEmail = styled.button`
   width: 6em;
   height: 53.3px;
   border-radius: 2px;
-  background:#fc67fa;
+  background:#32ff03;
   opacity:.9;
   color: #fff;
   border: none;

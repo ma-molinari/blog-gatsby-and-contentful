@@ -29,25 +29,6 @@ export function formatDateToPtBr(date) {
   }
 }
 
-export function formatCategoryText(type) {
-  switch (type) {
-    case "categoria":
-      return "Veterinário"
-    case "lojista":
-      return "Lojista"
-    case "petmondo":
-      return "Petmondo"
-    case "comunidade":
-      return "Comunidade"
-    case "marca":
-      return "Marca"
-    case "tutor":
-      return "Tutor"
-    default:
-      return "Categoria"
-  }
-}
-
 export const styleTransitionDefault = {
   marginTop: "-9999px",
   opacity: 0,

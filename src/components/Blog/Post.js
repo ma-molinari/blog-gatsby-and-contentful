@@ -18,6 +18,7 @@ const Post = props => {
         <BoxImagePost>
           <Link to={`p/${props.slug}`}>
             <ImagePost
+              draggable='false'
               srcSet={props.image}
               alt="article-representation-medium"
             />

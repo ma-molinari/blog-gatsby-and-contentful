@@ -49,6 +49,7 @@ const ImagePost = styled.img`
     transform: scale3d(1.05, 1.05, 1.05);
   }
 `
+
 const TitlePost = styled.p`
   font-size: 22px;
   font-weight: normal;

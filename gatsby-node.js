@@ -45,6 +45,7 @@ exports.createPages = async ({ graphql, actions }) => {
             node {
               category {
                 category
+                slug
               }
             }
           }
@@ -61,10 +62,10 @@ exports.createPages = async ({ graphql, actions }) => {
       const next = index === 0 ? null : categories[index - 1].node
 
       createPage({
-        path: `/categorias/${catg.node.category.category}`,
+        path: `/categorias/${catg.node.category.slug}`,
         component: Categories,
         context: {
-          categoria: catg.node.category.category,
+          categoria: catg.node.category.slug,
         },
       })
     })

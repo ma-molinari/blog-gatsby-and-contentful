@@ -36,8 +36,7 @@ Layout.propTypes = {
 export default Layout
 
 const Container = styled.div`
-  font-family: "codePro", "Helvetica Neue", Helvetica, Arial, sans-serif;
   main {
-    margin-top: 7.3em;
+    margin-top: 2.3em;
   }
 `

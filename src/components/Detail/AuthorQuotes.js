@@ -5,7 +5,7 @@ const AuthorQuotes = props => {
   return (
     <ContainerAuthorQuotes>
       <BoxAuthorQuotes>
-        <IconPhotoQuotes src={props.avatarAuthorQuotes} />
+        <IconPhotoQuotes draggable="false" src={props.avatarAuthorQuotes} />
         <TitleAuthorQuotes>{props.authorNameQuotes}</TitleAuthorQuotes>
         <ContentQuotes>{props.contentQuotes}</ContentQuotes>
       </BoxAuthorQuotes>
