@@ -11,7 +11,7 @@ import flutter from "../../assets/icons/flutter.svg"
 const GridLinks = (props) => {
   return (
     <Grid>
-      <Link to="categorias/html5-css3">
+      <CustomLink to="categorias/html5-css3">
         <BoxCard>
           <RowIcons>
             <IconCard draggable="false" src={html5}/>
@@ -19,25 +19,25 @@ const GridLinks = (props) => {
           </RowIcons>
           <TitleCard>HTML5 e CSS3</TitleCard>
         </BoxCard>
-      </Link>
-      <Link to="categorias/react">
+      </CustomLink>
+      <CustomLink to="categorias/react">
         <BoxCard>
           <IconCard draggable="false" src={react}/>
           <TitleCard>React</TitleCard>
         </BoxCard>
-      </Link>
-      <Link to="categorias/react-native">
+      </CustomLink>
+      <CustomLink to="categorias/react-native">
         <BoxCard>
           <IconCard draggable="false" src={react}/>
           <TitleCard>React Native</TitleCard>
         </BoxCard>
-      </Link>
-      <Link to="categorias/flutter">
+      </CustomLink>
+      <CustomLink to="categorias/flutter">
         <BoxCard>
           <IconCard draggable="false" src={flutter}/>
           <TitleCard>Flutter</TitleCard>
         </BoxCard>
-      </Link>
+      </CustomLink>
     </Grid>
   )
 }
@@ -88,4 +88,11 @@ const DescriptionCard = styled.p`
   margin-top: .5rem;
   color: #ffffff;
   font-weight: 500;
+`
+
+const CustomLink = styled(Link)`
+  text-decoration: none;
+  :hover{
+    opacity:.8;
+  }
 `
