@@ -28,18 +28,18 @@ const Header = () => {
 
   const location = useLocation();
 
-  let myWindow = location.pathname;
+  let pathname = location.pathname;
 
   const [menuMobile, setMenuMobile] = useState(false);
 
   return (
     <Container 
-      deskHeight={myWindow && window.location.pathname === "/" ? "800px" : "75px"}
-      mediumHeight={myWindow && window.location.pathname === "/" ? "500px" : "75px"}
-      mobileHeight={ myWindow && window.location.pathname === "/" ? "400px" : "75px"}
+      deskHeight={pathname && pathname === "/" ? "800px" : "75px"}
+      mediumHeight={pathname && pathname === "/" ? "500px" : "75px"}
+      mobileHeight={ pathname && pathname === "/" ? "400px" : "75px"}
       style={{
-        backgroundImage:  myWindow && window.location.pathname === "/" ? `url(${background})` : "",
-        backgroundColor:  myWindow && window.location.pathname === "/" ? "transparent" : "#000",
+        backgroundImage:  pathname && pathname === "/" ? `url(${background})` : "",
+        backgroundColor:  pathname && pathname === "/" ? "transparent" : "#000",
       }}
     >
       <HeaderNav>
@@ -53,12 +53,12 @@ const Header = () => {
             alt="menu-button"
           />
           {
-            myWindow && window.location.pathname === "/" && (
+            pathname && pathname === "/" && (
               <Home to="/">HOME</Home>
             )
           }
           {
-            myWindow && window.location.pathname !== "/" && (
+            pathname && pathname !== "/" && (
               <WrapLinks>
                 <Home to="/">HOME</Home>
                 <MyLink className="head-link" to="/categorias/html5-css3">
@@ -95,7 +95,7 @@ const Header = () => {
         )}
       </HeaderNav>
       {
-        myWindow && window.location.pathname === "/" && (
+        pathname && pathname === "/" && (
           <ContainerContentHeader>
             <BoxTitleHeader>
               <TextHeader>Front End</TextHeader>
