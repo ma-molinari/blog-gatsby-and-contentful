@@ -30,12 +30,12 @@ const Header = () => {
 
   return (
     <Container 
-      deskHeight={typeof window !== undefined && window.location.pathname === "/" ? "800px" : "75px"}
-      mediumHeight={typeof window !== undefined && window.location.pathname === "/" ? "500px" : "75px"}
-      mobileHeight={ typeof window !== undefined && window.location.pathname === "/" ? "400px" : "75px"}
+      deskHeight={typeof window !== "undefined" && window.location.pathname === "/" ? "800px" : "75px"}
+      mediumHeight={typeof window !== "undefined" && window.location.pathname === "/" ? "500px" : "75px"}
+      mobileHeight={ typeof window !== "undefined" && window.location.pathname === "/" ? "400px" : "75px"}
       style={{
-        backgroundImage:  typeof window !== undefined && window.location.pathname === "/" ? `url(${background})` : "",
-        backgroundColor:  typeof window !== undefined && window.location.pathname === "/" ? "transparent" : "#000",
+        backgroundImage:  typeof window !== "undefined" && window.location.pathname === "/" ? `url(${background})` : "",
+        backgroundColor:  typeof window !== "undefined" && window.location.pathname === "/" ? "transparent" : "#000",
       }}
     >
       <HeaderNav>
@@ -49,12 +49,12 @@ const Header = () => {
             alt="menu-button"
           />
           {
-            typeof window !== undefined && window.location.pathname === "/" && (
+            typeof window !== "undefined" && window.location.pathname === "/" && (
               <Home to="/">HOME</Home>
             )
           }
           {
-            typeof window !== undefined && window.location.pathname !== "/" && (
+            typeof window !== "undefined" && window.location.pathname !== "/" && (
               <WrapLinks>
                 <Home to="/">HOME</Home>
                 <MyLink className="head-link" to="/categorias/html5-css3">
@@ -91,7 +91,7 @@ const Header = () => {
         )}
       </HeaderNav>
       {
-        typeof window !== undefined && window.location.pathname === "/" && (
+        typeof window !== "undefined" && window.location.pathname === "/" && (
           <ContainerContentHeader>
             <BoxTitleHeader>
               <TextHeader>Front End</TextHeader>

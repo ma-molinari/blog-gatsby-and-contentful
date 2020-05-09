@@ -9,13 +9,6 @@ import html5 from "../../assets/icons/html5.svg"
 import flutter from "../../assets/icons/flutter.svg"
 
 const GridLinks = (props) => {
-
-  const handleRoute = (pathname) => {
-    if(typeof window !== undefined){
-      window.location.pathname = `/categorias/${pathname}`;
-    } 
-  }
-
   return (
     <Grid>
       <Link to="categorias/html5-css3">
