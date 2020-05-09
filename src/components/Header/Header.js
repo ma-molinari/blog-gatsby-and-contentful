@@ -1,6 +1,6 @@
-import { Link } from "@reach/router"
+import { Link, useLocation } from "@reach/router"
 import PropTypes from "prop-types"
-import React, { useState, useLayoutEffect } from "react"
+import React, { useState,useEffect } from "react"
 import styled from "styled-components"
 
 import MenuOpenIcon from "../../assets/icons/menu-icon.svg"
@@ -26,16 +26,20 @@ const Header = () => {
     }
   }
 
+  const location = useLocation();
+
+  let myWindow = location.pathname;
+
   const [menuMobile, setMenuMobile] = useState(false);
 
   return (
     <Container 
-      deskHeight={typeof window !== "undefined" && window.location.pathname === "/" ? "800px" : "75px"}
-      mediumHeight={typeof window !== "undefined" && window.location.pathname === "/" ? "500px" : "75px"}
-      mobileHeight={ typeof window !== "undefined" && window.location.pathname === "/" ? "400px" : "75px"}
+      deskHeight={myWindow && window.location.pathname === "/" ? "800px" : "75px"}
+      mediumHeight={myWindow && window.location.pathname === "/" ? "500px" : "75px"}
+      mobileHeight={ myWindow && window.location.pathname === "/" ? "400px" : "75px"}
       style={{
-        backgroundImage:  typeof window !== "undefined" && window.location.pathname === "/" ? `url(${background})` : "",
-        backgroundColor:  typeof window !== "undefined" && window.location.pathname === "/" ? "transparent" : "#000",
+        backgroundImage:  myWindow && window.location.pathname === "/" ? `url(${background})` : "",
+        backgroundColor:  myWindow && window.location.pathname === "/" ? "transparent" : "#000",
       }}
     >
       <HeaderNav>
@@ -49,12 +53,12 @@ const Header = () => {
             alt="menu-button"
           />
           {
-            typeof window !== "undefined" && window.location.pathname === "/" && (
+            myWindow && window.location.pathname === "/" && (
               <Home to="/">HOME</Home>
             )
           }
           {
-            typeof window !== "undefined" && window.location.pathname !== "/" && (
+            myWindow && window.location.pathname !== "/" && (
               <WrapLinks>
                 <Home to="/">HOME</Home>
                 <MyLink className="head-link" to="/categorias/html5-css3">
@@ -91,7 +95,7 @@ const Header = () => {
         )}
       </HeaderNav>
       {
-        typeof window !== "undefined" && window.location.pathname === "/" && (
+        myWindow && window.location.pathname === "/" && (
           <ContainerContentHeader>
             <BoxTitleHeader>
               <TextHeader>Front End</TextHeader>
